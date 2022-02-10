@@ -8,19 +8,17 @@ import { Component } from '@angular/core';
 export class TableContainerComponent {
 isEditMode: boolean = false;
 editedRow: number
-  constructor() { }
 
-setEditMode(rowNumber){
+setEditMode(rowNumber: number){
   this.isEditMode = true;
   this.editedRow = rowNumber
 }
 
-changeEditedRow(nextEditedRow){
-this.editedRow = nextEditedRow
+changeEditedRow(nextEditedRow: number){
+  this.editedRow = nextEditedRow
 }
 
-closeEditMode(isEditMode){
+closeEditMode(isEditMode: boolean){
   this.isEditMode = isEditMode
-}
-
+  }
 }

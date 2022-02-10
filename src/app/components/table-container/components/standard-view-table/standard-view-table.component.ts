@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
+import { TableValuesArrayDto } from '../dto/table-values-array.dto';
 
 
 @Component({
@@ -9,13 +10,12 @@ import { TableService } from 'src/app/services/table.service';
   styleUrls: ['./standard-view-table.component.css']
 })
 export class StandardViewTableComponent implements OnInit, AfterViewInit {
-  tableValuesArray: any[];
+  tableValuesArray: TableValuesArrayDto[];
   tableRowForm: FormGroup;
   productInProgress: string;
-  lastRowNumber: number = 3;
 
   @Output()
-  onClickOnRow = new EventEmitter<any>()
+  onClickOnRow = new EventEmitter<string>()
 
   constructor(
     private tableService: TableService
@@ -33,12 +33,10 @@ this.tableRowForm = new FormGroup({
 
 this.tableValuesArray = this.tableService.tableValuesArray
     this.setProductInProgress();
-
 }
 
 ngAfterViewInit(): void {
     this.addEventListenersToRows();
-
 }
 
 onAddAction(){
@@ -58,9 +56,7 @@ onAddAction(){
       actions: 'DELETE'
     })
   this.setProductInProgress();
-  this.addEventListenersToRows();
-
-  
+  this.addEventListenersToRows(); 
 }
 
 addEventListenersToRows(){
@@ -73,26 +69,25 @@ addEventListenersToRows(){
         e.stopPropagation()
       });
     }
-
   })
 }
-
 
 setProductInProgress(){
   this.productInProgress = this.tableValuesArray[this.tableValuesArray.length-1].product
 }
 
-checkIfProductExists(currentProduct){
-  const existingProductArray = []
+checkIfProductExists(currentProduct: string){
+  const existingProductArray: string[] = []
   this.tableService.tableValuesArray.forEach(row => {
     existingProductArray.push(row.product)
   })
+
   return existingProductArray.includes(currentProduct)
   
 }
 
-onDeleteItem(itemRow: HTMLElement, e){
-e.stopPropagation();
-this.tableValuesArray = this.tableService.onDeleteItem(itemRow)
-}
+onDeleteItem(itemRow: HTMLElement, event: Event){
+  event.stopPropagation();
+  this.tableValuesArray = this.tableService.onDeleteItem(itemRow)
+  }
 }

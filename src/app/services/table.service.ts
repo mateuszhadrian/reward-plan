@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core';
+import { TableValuesArrayDto } from '../components/table-container/components/dto/table-values-array.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
 
-  constructor() { }
+  tableValuesArrayTop: TableValuesArrayDto[]
+  tableValuesArrayBottom: TableValuesArrayDto[]
 
-  tableValuesArrayTop = [];
-  tableValuesArrayBottom = []
-
-  tableValuesArray = [
+  tableValuesArray: TableValuesArrayDto[] = [
     {
-      isFirstTierRow: true,
-      rowNumber: 1,
-      product: 'Casino',
-      threshold_from: 0,
-      threshold_to: 10.0,
-      criteria: 'Net revenue',
-      percentage: '10%' ,
-      actions: ''
+    isFirstTierRow: true,
+    rowNumber: 1,
+    product: 'Casino',
+    threshold_from: 0,
+    threshold_to: 10.0,
+    criteria: 'Net revenue',
+    percentage: '10%' ,
+    actions: ''
     },
     {
     isFirstTierRow: false,
@@ -30,8 +29,8 @@ export class TableService {
     criteria: 'Net revenue',
     percentage: '20%' ,
     actions: 'DELETE'
-  },
-  {
+    },
+    {
     isFirstTierRow: true,
     rowNumber: 3,
     product: 'Lotto',
@@ -40,18 +39,18 @@ export class TableService {
     criteria: 'Turnover',
     percentage: '5%' ,
     actions: 'DELETE'
-  }
+    }
   ]
 
-  prepareArraysToEditMode(editedRow){
-this.tableValuesArrayTop = this.tableValuesArray.slice(0, editedRow - 1);
-this.tableValuesArrayBottom = this.tableValuesArray.slice(editedRow);
+  prepareArraysToEditMode(editedRow: number){
+    this.tableValuesArrayTop = this.tableValuesArray.slice(0, editedRow - 1);
+    this.tableValuesArrayBottom = this.tableValuesArray.slice(editedRow);
   }
 
   onDeleteItem(itemRow: HTMLElement){
     const productName = itemRow.childNodes[0].firstChild.nodeValue;
     this.tableValuesArray = this.tableValuesArray.filter(row => row.product !== productName);
-    return this.tableValuesArray
-    }
 
+    return this.tableValuesArray
+  }
 }
