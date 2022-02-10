@@ -1,0 +1,71 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Threshold from</th>
+        <th scope="col">Threshold to</th>
+        <th scope="col">Critieria</th>
+        <th scope="col">Percentage</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of tableValuesArrayTop; let i = index">
+      <tr #itemRow id="{{i+1}}">
+        <td>{{item.product}}</td>
+        <td>{{item.threshold_from}}</td>
+        <td>{{item.threshold_to}}</td>
+        <td>{{item.criteria}}</td>
+        <td>{{item.percentage}}</td>
+      </tr>
+    </tbody>
+        <tr [formGroup]="tableRowForm">
+          <td>{{initValuesForRow.product}}</td>
+          <td><input 
+            type='text'
+            id='threshold_from'
+            formControlName='threshold_from'
+            ></td>
+          <td><input 
+            type='text'
+            id='threshold_to'
+            formControlName='threshold_to'
+            ></td>
+          <td><select 
+            type='text'
+            id='criteria'
+            formControlName='criteria'
+            >  
+            <option value="Turnover">Turnover</option>
+            <option value="Net revenue">Net revenue</option>
+            <option value="Other criteria 1">Other criteria 1</option>
+            <option value="Other criteria 2">Other criteria 2</option>
+          </select></td>
+          <td><input 
+            type='number'
+            min='0'
+            max='100'
+            id='percentage'
+            formControlName='percentage'
+            ></td>
+          <td>
+            <button (click)="onConfirmAction()" type="button" class="btn btn-primary confirm-button">C</button>
+          </td>
+        </tr>
+        <tbody *ngFor="let item of tableValuesArrayBottom; let i = index">
+          <tr #itemRow id="{{index+1}}">
+            <td>{{item.product}}</td>
+            <td>{{item.threshold_from}}</td>
+            <td>{{item.threshold_to}}</td>
+            <td>{{item.criteria}}</td>
+            <td>{{item.percentage}}</td>
+          </tr>
+        </tbody>
+        <tr style="visibility: hidden;">
+          <td><input></td>
+          <td><input></td>
+          <td><input></td>
+          <td><input></td>
+          <td><input></td>
+          <td><button class="btn btn-success add-button">ADD</button></td>
+        </tr>
+  </table>

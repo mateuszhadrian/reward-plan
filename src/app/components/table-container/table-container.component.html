@@ -1,0 +1,2 @@
+<app-standard-view-table (onClickOnRow)="setEditMode($event)" *ngIf="!isEditMode"></app-standard-view-table>
+<app-edit-view-table (closeEditMode)="closeEditMode($event)" (goToNextRow)="changeEditedRow($event)" [editedRow]="editedRow" *ngIf="isEditMode"></app-edit-view-table>

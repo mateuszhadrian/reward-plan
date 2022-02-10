@@ -1,0 +1,63 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Product</th>
+        <th scope="col">Threshold from</th>
+        <th scope="col">Threshold to</th>
+        <th scope="col">Critieria</th>
+        <th scope="col">Percentage</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of tableValuesArray; let i = index">
+      <tr #itemRow id="{{i+1}}">
+        <td>{{item.product}}</td>
+        <td>{{item.threshold_from}}</td>
+        <td>{{item.threshold_to}}</td>
+        <td>{{item.criteria}}</td>
+        <td>{{item.percentage}}</td>
+        <td *ngIf="item.actions === 'DELETE'"><button (click)="onDeleteItem(itemRow, $event)" type="button" class="btn btn-danger delete-button">DEL</button></td>
+      </tr>
+    </tbody>
+        <tr [formGroup]="tableRowForm">
+          <td><select 
+            type='text'
+            id='product'
+            formControlName='product'
+            >  
+            <option *ngIf='!checkIfProductExists("Casino")' value="Casino">Casino</option>
+            <option *ngIf='!checkIfProductExists("Lotto")' value="Lotto">Lotto</option>
+            <option *ngIf='!checkIfProductExists("Other option 1")' value="Other option 1">Other option 1</option>
+            <option *ngIf='!checkIfProductExists("Other option 2")' value="Other option 2">Other option 2</option>
+            <option value="{{productInProgress}}">{{productInProgress}}</option>
+          </select></td>
+          <td><input 
+            type='text'
+            id='threshold_from'
+            formControlName='threshold_from'
+            ></td>
+          <td><input 
+            type='text'
+            id='threshold_to'
+            formControlName='threshold_to'
+            ></td>
+          <td><select 
+            type='text'
+            id='criteria'
+            formControlName='criteria'
+            >  
+            <option value="Turnover">Turnover</option>
+            <option value="Net revenue">Net revenue</option>
+            <option value="Other option 1">Other criteria 1</option>
+            <option value="Other option 2">Other criteria 2</option>
+          </select></td>
+          <td><input 
+            type='number'
+            min='0'
+            max='100'
+            id='percentage'
+            formControlName='percentage'
+            ></td>
+          <td><button (click)="onAddAction()" type="button" class="btn btn-success add-button">ADD</button></td>
+        </tr>
+  </table>

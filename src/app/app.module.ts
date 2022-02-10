@@ -3,14 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StandardViewTableComponent } from './components/table-container/components/standard-view-table/standard-view-table.component';
+import { EditViewTableComponent } from './components/table-container/components/edit-view-table/edit-view-table.component';
+import { TableContainerComponent } from './components/table-container/table-container.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StandardViewTableComponent,
+    EditViewTableComponent,
+    TableContainerComponent
   ],
   imports: [
     BrowserModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
