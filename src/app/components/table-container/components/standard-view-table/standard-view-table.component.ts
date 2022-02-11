@@ -42,7 +42,7 @@ ngAfterViewInit(): void {
     this.addEventListenersToRows();
 }
 
-onAddAction(){
+onAddAction(): void{
   if (!this.isNotNextTier()) {
     this.tableRowForm.controls.threshold_from.setValue(Math.round(this.valueForNextTierThresholdFrom * 100) / 100)
   }
@@ -67,7 +67,7 @@ onAddAction(){
   this.tableRowForm.controls.threshold_to.setValue(this.tableService.tableValuesArray[this.tableService.tableValuesArray.length-1].threshold_to + 1);
 }
 
-addEventListenersToRows(){
+addEventListenersToRows(): void{
   this.tableService.tableValuesArray.forEach((row, i) => {
     const rowAsElement = document.getElementById((i+1).toString())
     if ((rowAsElement?.getAttribute('listener') !== 'true') && row.isFirstTierRow) {
@@ -80,7 +80,7 @@ addEventListenersToRows(){
   })
 }
 
-setProductInProgress(){
+setProductInProgress(): void{
   this.productInProgress = this.tableValuesArray[this.tableValuesArray.length-1].product
 }
 
@@ -94,7 +94,7 @@ checkIfProductExists(currentProduct: string){
   
 }
 
-onDeleteItem(itemRow: HTMLElement, event: Event){
+onDeleteItem(itemRow: HTMLElement, event: Event): void{
   event.stopPropagation();
   this.tableValuesArray = this.tableService.onDeleteItem(itemRow)
   }
@@ -111,7 +111,7 @@ onDeleteItem(itemRow: HTMLElement, event: Event){
     this.tableValuesArray[this.tableValuesArray.length - 1].criteria === this.tableRowForm.controls.criteria.value)
   }
 
-  isMaxPercentSet(){
+  isMaxPercentSet(): boolean{
     return this.tableRowForm.controls.percentage.value === 100
   }
 
@@ -122,12 +122,12 @@ onDeleteItem(itemRow: HTMLElement, event: Event){
   return null
   }
 
-  isNameFieldEmpty(){
+  isNameFieldEmpty(): boolean{
     const nameInput: HTMLInputElement = document.querySelector('#name-input')
     return nameInput.value === ''
   }
 
-  onSavePlan(){
+  onSavePlan(): void{
     const nameInput: HTMLInputElement = document.querySelector('#name-input')
     if (nameInput.value === '') {
       return

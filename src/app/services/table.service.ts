@@ -43,12 +43,12 @@ export class TableService {
     }
   ]
 
-  prepareArraysToEditMode(editedRow: number){
+  prepareArraysToEditMode(editedRow: number): void{
     this.tableValuesArrayTop = this.tableValuesArray.slice(0, editedRow - 1);
     this.tableValuesArrayBottom = this.tableValuesArray.slice(editedRow);
   }
 
-  onDeleteItem(itemRow: HTMLElement){
+  onDeleteItem(itemRow: HTMLElement): TableValuesArrayDto[]{
     const productName = itemRow.childNodes[0].firstChild.nodeValue;
     this.tableValuesArray = this.tableValuesArray.filter(row => row.product !== productName);
 

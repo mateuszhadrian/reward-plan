@@ -9,16 +9,16 @@ export class TableContainerComponent {
 isEditMode: boolean = false;
 editedRow: number
 
-setEditMode(rowNumber: number){
+setEditMode(rowNumber: number): void{
   this.isEditMode = true;
   this.editedRow = rowNumber
 }
 
-changeEditedRow(nextEditedRow: number){
+changeEditedRow(nextEditedRow: number): void{
   this.editedRow = nextEditedRow
 }
 
-closeEditMode(isEditMode: boolean){
+closeEditMode(isEditMode: boolean): void{
   this.isEditMode = isEditMode
   }
 }

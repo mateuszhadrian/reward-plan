@@ -48,13 +48,12 @@ this.tableRowForm = new FormGroup({
   })
 }
 
-setEditModeArrays(){
+setEditModeArrays(): void{
   this.tableValuesArrayTop = this.tableService.tableValuesArrayTop;
   this.tableValuesArrayBottom = this.tableService.tableValuesArrayBottom;
 }
 
-setInitValuesForRow(){
-
+setInitValuesForRow(): void{
   this.initValuesForRow = {
     product: this.tableService.tableValuesArray[this.editedRow - 1].product,
     threshold_from: this.tableService.tableValuesArray[this.editedRow - 1].isFirstTierRow ? this.tableService.tableValuesArray[this.editedRow - 1].threshold_from : +this.tableService.tableValuesArray[this.editedRow - 2].threshold_to + 0.01,
@@ -64,7 +63,7 @@ setInitValuesForRow(){
   }
 }
 
-onConfirmAction(){
+onConfirmAction(): void{
     this.setValuesFromControlsToRow();
 
   if (this.tableService.tableValuesArray[this.editedRow - 1].actions === 'DELETE') {
@@ -72,7 +71,7 @@ onConfirmAction(){
   }
 }
 
-setValuesFromControlsToRow(){
+setValuesFromControlsToRow(): void{
   const newValuesForRow = {
     isFirstTierRow: this.tableService.tableValuesArray[this.editedRow - 1].isFirstTierRow,
     rowNumber: this.tableService.tableValuesArray[this.editedRow - 1].rowNumber,
@@ -96,7 +95,7 @@ setValuesFromControlsToRow(){
     return null
     }
 
-    isMaxPercentSet(){
+    isMaxPercentSet(): boolean{
       return this.tableRowForm.controls.percentage.value === 100
     }
   
