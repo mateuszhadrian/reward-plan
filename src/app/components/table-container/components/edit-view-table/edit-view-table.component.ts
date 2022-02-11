@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { TableValuesArrayDto } from '../dto/table-values-array.dto';
 
@@ -14,6 +14,7 @@ export class EditViewTableComponent implements OnChanges {
   productInProgress: string;
   tableValuesArrayTop: TableValuesArrayDto[];
   tableValuesArrayBottom: TableValuesArrayDto[];
+  valueForNextTierThresholdFrom: number;
   initValuesForRow: Partial<TableValuesArrayDto> = {
     product: null,
     threshold_from: 0,
@@ -40,8 +41,8 @@ ngOnChanges(): void {
 
 
 this.tableRowForm = new FormGroup({
-  'threshold_from': new FormControl(this.initValuesForRow.threshold_from),
-  'threshold_to': new FormControl(this.initValuesForRow.threshold_to),
+  'threshold_from': new FormControl(this.initValuesForRow.threshold_from, Validators.required),
+  'threshold_to': new FormControl(this.initValuesForRow.threshold_to, [Validators.required, this.thresholdToBiggerThanThresholdTo.bind(this)]),
   'criteria': new FormControl(this.initValuesForRow.criteria),
   'percentage': new FormControl(+this.initValuesForRow.percentage),
   })
@@ -56,7 +57,7 @@ setInitValuesForRow(){
 
   this.initValuesForRow = {
     product: this.tableService.tableValuesArray[this.editedRow - 1].product,
-    threshold_from: this.tableService.tableValuesArray[this.editedRow - 1].threshold_from,
+    threshold_from: this.tableService.tableValuesArray[this.editedRow - 1].isFirstTierRow ? this.tableService.tableValuesArray[this.editedRow - 1].threshold_from : +this.tableService.tableValuesArray[this.editedRow - 2].threshold_to + 0.01,
     threshold_to: this.tableService.tableValuesArray[this.editedRow - 1].threshold_to,
     criteria: this.tableService.tableValuesArray[this.editedRow - 1].criteria,
     percentage: this.tableService.tableValuesArray[this.editedRow - 1].percentage.substring(0, this.tableService.tableValuesArray[this.editedRow - 1].percentage.length - 1)
@@ -87,4 +88,16 @@ setValuesFromControlsToRow(){
     this.tableService.prepareArraysToEditMode(this.editedRow);
     this.goToNextRow.emit(+this.editedRow + 1)
   }
+
+  thresholdToBiggerThanThresholdTo(control: FormControl): {[s: string]: boolean} {
+    if (control.value < this.tableService.tableValuesArray[this.editedRow -1].threshold_from) {
+      return {'threshold to must be bigger than threshold from': true};
+    }
+    return null
+    }
+
+    isMaxPercentSet(){
+      return this.tableRowForm.controls.percentage.value === 100
+    }
+  
 }

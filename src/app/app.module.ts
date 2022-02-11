@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StandardViewTableComponent } from './components/table-container/components/standard-view-table/standard-view-table.component';
 import { EditViewTableComponent } from './components/table-container/components/edit-view-table/edit-view-table.component';
 import { TableContainerComponent } from './components/table-container/table-container.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from  '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { TableContainerComponent } from './components/table-container/table-cont
   imports: [
     BrowserModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

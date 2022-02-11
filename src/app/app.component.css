@@ -1,4 +1,10 @@
-td {
-    margin: 0;
-    padding: 0
+.header {
+    font-size: 42px;
+    text-align: center;
+    margin: 12px;
+}
+
+.reward-plan-table {
+    display: flex;
+    justify-content: center;
 }

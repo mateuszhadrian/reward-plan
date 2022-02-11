@@ -16,7 +16,7 @@
         <td>{{item.threshold_to}}</td>
         <td>{{item.criteria}}</td>
         <td>{{item.percentage}}</td>
-        <td *ngIf="item.actions === 'DELETE'"><button (click)="onDeleteItem(itemRow, $event)" type="button" class="btn btn-danger delete-button">DEL</button></td>
+        <td *ngIf="item.actions === 'DELETE'"><button (click)="onDeleteItem(itemRow, $event)" type="button" class="btn btn-danger delete-button">delete</button></td>
       </tr>
     </tbody>
         <tr [formGroup]="tableRowForm">
@@ -31,13 +31,13 @@
             <option *ngIf='!checkIfProductExists("Other option 2")' value="Other option 2">Other option 2</option>
             <option value="{{productInProgress}}">{{productInProgress}}</option>
           </select></td>
+          <td><span *ngIf="isNotNextTier(); else nextTierThresholdFrom">0</span> 
+           
+          <ng-template #nextTierThresholdFrom>{{valueForNextTierThresholdFrom}}</ng-template>
+          </td>
           <td><input 
-            type='text'
-            id='threshold_from'
-            formControlName='threshold_from'
-            ></td>
-          <td><input 
-            type='text'
+            type='number'
+            min=0
             id='threshold_to'
             formControlName='threshold_to'
             ></td>
@@ -58,6 +58,8 @@
             id='percentage'
             formControlName='percentage'
             ></td>
-          <td><button (click)="onAddAction()" type="button" class="btn btn-success add-button">ADD</button></td>
+          <td><button (click)="onAddAction()" id="addButton" type="button" [disabled]="tableRowForm.invalid" class="btn btn-success add-button">add</button></td>
         </tr>
   </table>
+  <div class="warning-message" *ngIf="isMaxPercentSet()">You're about to provide 100% to percentage input. Please verify</div>
+  <div class="flex-container"><input id="name-input" placeholder="Provide Reward Plan name here to be able to save" type="text"><button class="btn btn-success add-button save-button" (click)="onSavePlan()">save</button></div>

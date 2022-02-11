@@ -1,0 +1,15 @@
+.warning-message {
+    color: #880808;
+    text-align: center;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    margin-bottom: 24px;
+}
+
+.save-button {
+    margin: 12px;
+}
